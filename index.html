@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Cat Clickernator!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>The Cat Clickernator!</h1>
+    <dive id=catImage><img title="an image of a cat!" src="CatImage.jpg" alt="Too Bad SUCKER!"></dive>
+    <p id=clickNum>1</p>
+
+    <script>
+
+        // Listen for click and change number
+        var count = 1;
+        document.getElementById('catImage').onclick = function() {
+            count++;
+            console.log("count");
+            document.getElementById('clickNum').innerHTML = count;
+        };
+
+    </script>
+</body>
+</html>

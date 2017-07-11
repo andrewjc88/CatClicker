@@ -1,0 +1,21 @@
+body {
+    background-color: teal;
+}
+h1 {
+    color: white;
+    font-size: 40px;
+    padding: 0px 20px;
+    text-align: center;
+    font-family: "Trebuchet MS";
+}
+#clickNum {
+    font-family: "Trebuchet MS";
+    float: inline;
+    font-size: 100px;
+    color: red;
+    text-align: center;
+    padding; 20px 0px;
+}
+#catImage {
+    align-items: center;
+}
