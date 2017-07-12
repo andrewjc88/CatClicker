@@ -8,14 +8,14 @@ h1 {
     text-align: center;
     font-family: "Trebuchet MS";
 }
-#clickNum {
+p {
     font-family: "Trebuchet MS";
     float: inline;
     font-size: 100px;
-    color: red;
+    color: white;
     text-align: center;
     padding; 20px 0px;
 }
-#catImage {
+#CatImage1 #CatImage2 {
     align-items: center;
 }
