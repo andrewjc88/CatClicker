@@ -7,26 +7,10 @@
 </head>
 <body>
     <h1>The Cat Clickernator!</h1>
-    <dive id=catIDImage1><img title="an image of a cat!" src="img/CatImage1.jpg" alt="Too Bad SUCKER!"></dive>
-    <p id=clickNum1>1</p>
-    <dive id=catIDImage2><img title="an image of another cat!" src="img/CatImage2.jpg" alt="Too Bad SUCKER!"></dive>
-    <p id=clickNum2>1</p>
+    <div id=catSelector >Cat Selctonator<br></div>
+    <div id=catImage></div>
+    <div id=catCount></div>
 
-    <script>
-
-        // Listen for click and change number
-        var catCounter1 = 1;
-        document.getElementById('catIDImage1').onclick = function() {
-            catCounter1++;
-            document.getElementById('clickNum1').innerHTML = catCounter1;
-        };
-
-        var catCounter2 = 1;
-        document.getElementById('catIDImage2').onclick = function() {
-            catCounter2++;
-            document.getElementById('clickNum2').innerHTML = catCounter2;
-        };
-
-    </script>
+    <script scr="js/app.js"></script>
 </body>
 </html>

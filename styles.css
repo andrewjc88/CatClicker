@@ -1,5 +1,7 @@
 body {
     background-color: teal;
+    font-family: "Trebuchet MS";
+    display: block;
 }
 h1 {
     color: white;
@@ -9,13 +11,23 @@ h1 {
     font-family: "Trebuchet MS";
 }
 p {
-    font-family: "Trebuchet MS";
     float: inline;
     font-size: 100px;
     color: white;
     text-align: center;
     padding; 20px 0px;
 }
-#CatImage1 #CatImage2 {
-    align-items: center;
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+#catSelector {
+    color: white;
+    font-size: 2em;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
