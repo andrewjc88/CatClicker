@@ -1,110 +1,128 @@
-$(function(){
-    // Make that code strictly speaking //
-    'use strict';
+// Strictly Speaking //
+// 'use strict';
 
-    // Cats Json //
-    var model = {
-        var cats = [
+var model = {
+    cats: [],
+    init: function(){
+        this.cats = [
             {
+                index: 1,
                 name: "Bill",
                 clicks: "0",
                 imageUrl: "img/Bill.jpg"
             },
             {
+                index: 2,
                 name: "Frank",
                 clicks: "0",
                 imageUrl: "img/Frank.jpg"
             },
             {
+                index: 3,
                 name: "George",
                 clicks: "0",
                 imageUrl: "img/George.jpg"
             },
             {
+                index: 4,
                 name: "Little",
                 clicks: "0",
                 imageUrl: "img/Little.jpg"
             },
             {
+                index: 5,
                 name: "Skittle",
                 clicks: "0",
                 imageUrl: "img/Skittle.jpg"
             },
             {
+                index: 6,
                 name: "Scott",
                 clicks: "0",
                 imageUrl: "img/Scott.jpg"
-            },
-        ];
-        init: function(){
-            cat
-        }
-    };
-
-    var octopus = {
-
-        init: funciton(){
-            model.init();
-            listView.init();
-            catViw.init();
-        }
-    };
-
-    var listView = {
-        init: function(){
-
-        },
-        var catSelector = document.getElementById("catSelector");
-
-        var selectList = document.createElement("select");
-        selectList.id = "mySelect";
-        catSelector.appendChild(selectList);
-        ilen = model.cats.length
-        for (var i = 0, ; i < ilen; i++) {
-            var option = document.createElement("option");
-            option.value = moted.cats[i].name;
-            option.text = model.cats[i].name;
-            selectList.appendChild(option);
-            // Make cat image display //
-            if (option == active){
-                console.log("something!");
             }
-        };
-    };
+        ];
+    }
+};
 
-    var catView = {
-        init: function(){
+// Controller
+var octopus = {
+    init: function() {
+        model.init();
+        listView.makeCatList();
+        octopus.listenForListClick();
+        octopus.listenForListClick();
+    },
 
+    listenForListClick: function() {
+
+        var list = document.getElementById('catSelector');
+        var catLI = catSelector.children;
+        var ilen = catLI.length;
+
+        for (var i = 0; i < ilen; i++) {
+            (function(currentCat) {
+                catLI[currentCat].addEventListener('click', function() {
+                    catView.drawCurrentCat(currentCat);
+                    octopus.listenForCatClick(currentCat)
+                })
+            })(i);
         }
-    };
-    octopus init();
-});
 
-// Display list for all Cats //
+    },
+    listenForCatClick: function(currentCat) {
+        currentCat.addEventListener('click', (function(numCopy) {
+            selectedCat.clicks++;
+        }));
+    }
+};
+
+var listView = {
+    makeCatList: function() {
+        var ilen = model.cats.length;
+        for (var i = 0; i < ilen; i++) {
+
+            // Make dom element
+            var listItem = document.createElement('li');
+
+            // Set dome element to cat name
+            listItem.textContent = model.cats[i].name;
+
+            // append cat name to document body.
+            document.getElementById('catSelector').append(listItem);
+
+            // // add index ID to li
+            // listItem.id = i;
+
+        };
+    }
+};
+
+var catView = {
+    drawCurrentCat: function(currentCat){
+        // console.log("You selected a Cat!" + index);
+
+        // Make Dom Element
+        var catImageDiv = document.createElement('div');
+
+        // Set
+        // var image = Cats[i].imageUrl;
+        // var imageNode = document.createElement("img");
+        // document.body.appendChild(image);
+        // imageNode.append(image);
+    }
+};
+octopus.init();
 
 
 
 
-// var showCat = function(event) {
-//     console.log("A CAT WAS CLICKED!");
-//     // var image = Cats[i].imageUrl;
-//     // var imageNode = document.createElement("img");
-//     // document.body.appendChild(image);
-//     // imageNode.append(image);
-// };
 
 
 
 
 
 
-
-// 
-//
-//
-//
-//
-//
 // WTF WAS I THINKING?
 //     // Click listener that displays initial cat image
 //     name.addEventListener('click', (function(){
