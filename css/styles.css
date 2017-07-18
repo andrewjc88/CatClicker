@@ -10,6 +10,10 @@ h1 {
     text-align: center;
     font-family: "Trebuchet MS";
 }
+h2 {
+    color: white;
+    font-size: 2em;
+}
 p {
     float: inline;
     font-size: 100px;
@@ -21,13 +25,15 @@ img {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width: 70%;
+    align-content: right;
 
 }
 
 #catSelector {
     color: white;
-    font-size: 2em;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+    font-size: 1.3em;
+    text-align: left;
+    /*margin-left: auto;
+    margin-right: auto;*/
 }

@@ -1,5 +1,5 @@
 // Strictly Speaking //
-// 'use strict';
+'use strict';
 
 var model = {
     cats: [],
@@ -42,6 +42,13 @@ var model = {
                 imageUrl: "img/Scott.jpg"
             }
         ];
+    },
+
+    addClick: function(currentCat) {
+        // console.log("you have clicked " + currentCat + " Cat");
+        var addAClick = model.cats[currentCat].clicks;
+        addAClick = addAClick + 1;
+        console.log(addAClick);
     }
 };
 
@@ -50,30 +57,28 @@ var octopus = {
     init: function() {
         model.init();
         listView.makeCatList();
-        octopus.listenForListClick();
-        octopus.listenForListClick();
     },
 
     listenForListClick: function() {
-
         var list = document.getElementById('catSelector');
         var catLI = catSelector.children;
         var ilen = catLI.length;
-
         for (var i = 0; i < ilen; i++) {
             (function(currentCat) {
                 catLI[currentCat].addEventListener('click', function() {
+
                     catView.drawCurrentCat(currentCat);
-                    octopus.listenForCatClick(currentCat)
                 })
             })(i);
         }
-
     },
+
     listenForCatClick: function(currentCat) {
-        currentCat.addEventListener('click', (function(numCopy) {
-            selectedCat.clicks++;
-        }));
+
+        document.getElementById('catImage').onclick = function() {
+            model.addClick(currentCat);
+            catView.drawCurrentCat(currentCat);
+        };
     }
 };
 
@@ -91,25 +96,48 @@ var listView = {
             // append cat name to document body.
             document.getElementById('catSelector').append(listItem);
 
-            // // add index ID to li
-            // listItem.id = i;
-
         };
+    octopus.listenForListClick();
     }
 };
 
 var catView = {
     drawCurrentCat: function(currentCat){
-        // console.log("You selected a Cat!" + index);
+        console.log("You selected a Cat " + currentCat);
 
-        // Make Dom Element
-        var catImageDiv = document.createElement('div');
+        // Make cat image url element
+        var catImageUrl = model.cats[currentCat].imageUrl;
 
-        // Set
-        // var image = Cats[i].imageUrl;
-        // var imageNode = document.createElement("img");
-        // document.body.appendChild(image);
-        // imageNode.append(image);
+        // Make cat click count element
+        var catImageClickCount = model.cats[currentCat].clicks;
+
+        // Make Dom Element for image
+        var catImageDiv = document.createElement('img');
+        // Make Dom Element for Count indicator
+        var catCountDiv = document.createElement('h2');
+
+        // Clear div
+        var imgDiv = document.getElementById('catImage');
+        var countDiv = document.getElementById('catCount');
+
+        while (imgDiv.firstChild) {
+            imgDiv.removeChild(imgDiv.firstChild);
+            countDiv.removeChild(countDiv.firstChild);
+        };
+
+        // Set cat image source url
+        catImageDiv.setAttribute('src', catImageUrl);
+
+        // Set cat cat count
+        // catCountDiv.textContent(catImageClickCount);
+
+        // Append Selected Cat Image
+        document.getElementById('catCount').append(catImageClickCount);
+
+        // Append Selected Cat Image
+        document.getElementById('catImage').append(catImageDiv);
+
+        octopus.listenForCatClick(currentCat);
     }
 };
 octopus.init();
