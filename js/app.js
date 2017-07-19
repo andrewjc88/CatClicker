@@ -6,49 +6,40 @@ var model = {
     init: function(){
         this.cats = [
             {
-                index: 1,
                 name: "Bill",
-                clicks: "0",
+                clicks: 0,
                 imageUrl: "img/Bill.jpg"
             },
             {
-                index: 2,
                 name: "Frank",
-                clicks: "0",
+                clicks: 0,
                 imageUrl: "img/Frank.jpg"
             },
             {
-                index: 3,
                 name: "George",
-                clicks: "0",
+                clicks: 0,
                 imageUrl: "img/George.jpg"
             },
             {
-                index: 4,
                 name: "Little",
-                clicks: "0",
+                clicks: 0,
                 imageUrl: "img/Little.jpg"
             },
             {
-                index: 5,
                 name: "Skittle",
-                clicks: "0",
+                clicks: 0,
                 imageUrl: "img/Skittle.jpg"
             },
             {
-                index: 6,
                 name: "Scott",
-                clicks: "0",
+                clicks: 0,
                 imageUrl: "img/Scott.jpg"
             }
         ];
     },
 
     addClick: function(currentCat) {
-        // console.log("you have clicked " + currentCat + " Cat");
-        var addAClick = model.cats[currentCat].clicks;
-        addAClick = addAClick + 1;
-        console.log(addAClick);
+        model.cats[currentCat].clicks++;
     }
 };
 
@@ -66,7 +57,7 @@ var octopus = {
         for (var i = 0; i < ilen; i++) {
             (function(currentCat) {
                 catLI[currentCat].addEventListener('click', function() {
-
+                    // Draws the currnet cat and cat count
                     catView.drawCurrentCat(currentCat);
                 })
             })(i);
@@ -74,7 +65,6 @@ var octopus = {
     },
 
     listenForCatClick: function(currentCat) {
-
         document.getElementById('catImage').onclick = function() {
             model.addClick(currentCat);
             catView.drawCurrentCat(currentCat);
@@ -103,7 +93,7 @@ var listView = {
 
 var catView = {
     drawCurrentCat: function(currentCat){
-        console.log("You selected a Cat " + currentCat);
+        //console.log("You selected a Cat " + currentCat);
 
         // Make cat image url element
         var catImageUrl = model.cats[currentCat].imageUrl;
@@ -116,10 +106,11 @@ var catView = {
         // Make Dom Element for Count indicator
         var catCountDiv = document.createElement('h2');
 
-        // Clear div
         var imgDiv = document.getElementById('catImage');
+
         var countDiv = document.getElementById('catCount');
 
+        // Clear div
         while (imgDiv.firstChild) {
             imgDiv.removeChild(imgDiv.firstChild);
             countDiv.removeChild(countDiv.firstChild);
@@ -132,11 +123,12 @@ var catView = {
         // catCountDiv.textContent(catImageClickCount);
 
         // Append Selected Cat Image
-        document.getElementById('catCount').append(catImageClickCount);
+        countDiv.append(catImageClickCount);
 
         // Append Selected Cat Image
-        document.getElementById('catImage').append(catImageDiv);
+        imgDiv.append(catImageDiv);
 
+        // Run the image click
         octopus.listenForCatClick(currentCat);
     }
 };
