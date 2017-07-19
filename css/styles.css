@@ -2,6 +2,7 @@ body {
     background-color: teal;
     font-family: "Trebuchet MS";
     display: inline-block;
+    width: 100%;
 }
 h1 {
     color: white;
