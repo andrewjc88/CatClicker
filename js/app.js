@@ -40,10 +40,18 @@ var model = {
 
     addClick: function(currentCat) {
         model.cats[currentCat].clicks++;
+    },
+    saveCatData: function(currentCat, newCatName, newCatImgUrl, newCatClickCount) {
+        // console.log(currentCat, newCatName, newCatImgUrl, newCatClickCount);
+        model.cats[currentCat].name = (newCatName);
+        model.cats[currentCat].imageUrl = (newCatImgUrl);
+        model.cats[currentCat].clicks = (newCatClickCount);
+        // console.log("save button was clicked!");
+        listView.makeCatList();
+        catView.drawCurrentCat(currentCat);
     }
 };
 
-// Controller
 var octopus = {
     init: function() {
         model.init();
@@ -63,17 +71,42 @@ var octopus = {
             })(i);
         }
     },
-
     listenForCatClick: function(currentCat) {
         document.getElementById('catImage').onclick = function() {
             model.addClick(currentCat);
             catView.drawCurrentCat(currentCat);
         };
+    },
+    listenForAdminClick: function(currentCat) {
+        document.getElementById('adminBut').onclick = function() {
+            adminView.showAdmin();
+        };
+    },
+    listenForSaveClick: function(currentCat) {
+        document.getElementById('saveButton').onclick = function() {
+            var newCatName = document.getElementById('catNameId').value;
+            var newCatImgUrl = document.getElementById('catImageUrlId').value;
+            var newCatClickCount = document.getElementById('catImageClickCountId').value;
+
+            model.saveCatData(currentCat, newCatName, newCatImgUrl, newCatClickCount);
+            catView.drawCurrentCat(currentCat);
+            listView.makeCatList();
+        };
+    },
+    listenForCancelClick: function() {
+        document.getElementById('cancelButton').onclick = function() {
+            adminView.hideAdmin();
+        };
     }
 };
-
 var listView = {
     makeCatList: function() {
+
+        // Clear old list
+        var listDiv = document.getElementById('catSelector');
+        while (listDiv.firstChild) {
+            listDiv.removeChild(listDiv.firstChild);
+        };
         var ilen = model.cats.length;
         for (var i = 0; i < ilen; i++) {
 
@@ -95,19 +128,16 @@ var catView = {
     drawCurrentCat: function(currentCat){
         //console.log("You selected a Cat " + currentCat);
 
-        // Make cat image url element
+        // Make variables for currentCat
         var catImageUrl = model.cats[currentCat].imageUrl;
-
-        // Make cat click count element
         var catImageClickCount = model.cats[currentCat].clicks;
 
-        // Make Dom Element for image
+        // Make Dom Element for CurrentCat
         var catImageDiv = document.createElement('img');
-        // Make Dom Element for Count indicator
         var catCountDiv = document.createElement('h2');
 
+        // Make variables for dom elements
         var imgDiv = document.getElementById('catImage');
-
         var countDiv = document.getElementById('catCount');
 
         // Clear div
@@ -119,94 +149,93 @@ var catView = {
         // Set cat image source url
         catImageDiv.setAttribute('src', catImageUrl);
 
-        // Set cat cat count
-        // catCountDiv.textContent(catImageClickCount);
-
         // Append Selected Cat Image
         countDiv.append(catImageClickCount);
-
-        // Append Selected Cat Image
         imgDiv.append(catImageDiv);
 
-        // Run the image click
+        // Run the image click listener in ocotpus (controller)
         octopus.listenForCatClick(currentCat);
+        adminView.adminPanel(currentCat);
     }
 };
+
+var adminView = {
+
+    adminPanel: function(currentCat) {
+        // console.log(currentCat);
+
+        // Make CurrentCat Variables
+        var catName = model.cats[currentCat].name;
+        var catImageUrl = model.cats[currentCat].imageUrl;
+        var catImageClickCount = model.cats[currentCat].clicks;
+
+        // Make Currenet Cat Dom Elements
+        var domCatName = document.createElement('input');
+        var domCatImgUrl = document.createElement('input');
+        var domCatImgCount = document.createElement('input');
+        var domSaveButt = document.createElement('input');
+        var domCancelButt = document.createElement('input');
+
+        // Make variables for parent dom element
+        var adminViewNode = document.getElementById('adminView');
+
+        // Clear old admin panel
+        while (adminViewNode.firstChild) {
+            adminViewNode.removeChild(adminViewNode.lastChild);
+        };
+
+        // Set node type attributes
+        domCatName.setAttribute('type', 'text');
+        domCatImgUrl.setAttribute('type', 'text');
+        domCatImgCount.setAttribute('type', 'text');
+
+        // Set node value attributes
+        domCatName.setAttribute('value', catName);
+        domCatImgUrl.setAttribute('value', catImageUrl);
+        domCatImgCount.setAttribute('value', catImageClickCount);
+
+        // Set node ID attributes
+        domCatName.setAttribute('id', 'catNameId');
+        domCatImgUrl.setAttribute('id', 'catImageUrlId');
+        domCatImgCount.setAttribute('id', 'catImageClickCountId');
+
+        // Set Save button attributes
+        domSaveButt.setAttribute('type', 'button');
+        domSaveButt.setAttribute('id', 'saveButton');
+        domSaveButt.setAttribute('value', 'Save');
+        domSaveButt.setAttribute('textContent', 'Save');
+
+        // Set Cancel button attributes
+        domCancelButt.setAttribute('type', 'button');
+        domCancelButt.setAttribute('id', 'cancelButton');
+        domCancelButt.setAttribute('value', 'Cancel');
+        domCancelButt.setAttribute('textContent', 'Cancel');
+
+        // Append current cat data to dom nodes.
+        adminViewNode.append(domCatName);
+        adminViewNode.append(domCatImgUrl);
+        adminViewNode.append(domCatImgCount);
+        adminViewNode.append(domSaveButt);
+        adminViewNode.append(domCancelButt);
+
+        // Hide admin view!
+        //adminView.style.display = 'none';
+        adminView.hideAdmin();
+
+        // Make input field for number of clicks
+        octopus.listenForAdminClick(currentCat);
+        octopus.listenForSaveClick(currentCat);
+        octopus.listenForCancelClick();
+
+    },
+    showAdmin: function() {
+        var adminViewNode = document.getElementById('adminView');
+        adminViewNode.style.display = 'block';
+    },
+    hideAdmin: function() {
+        var adminViewNode = document.getElementById('adminView');
+        adminViewNode.style.display = 'none';
+    },
+};
+
 octopus.init();
-
-
-
-
-
-
-
-
-
-
-// WTF WAS I THINKING?
-//     // Click listener that displays initial cat image
-//     name.addEventListener('click', (function(){
-//     document.getElementById('catIDImage1').onclick = function()
-//         var imageNode = document.createElement("img");
-//         document.body.appendChild(imageNode);
-//         imageNode.append(image);
-//     }))
-// };
-//
-// // Display cat that is selected //
-// document.getElementById('catIDImage1').onclick = function() {
-//     catCounter1++;
-//     document.getElementById('clickNum1').innerHTML = catCounter1;
-// }
-// // Increment clicks on cat image click //
-//
-// // Cat Object Creator //
-//
-// var CatCreator = function(cat) {
-//     this.name = cat.name || undefined;
-//     this.clicks = cat.clicks || 0;
-//     this.imageUrl = cat.imageUrl || undefined;
-// };
-//
-// // Post cat to page & increment //
-// CatCreator.prototype.increment = function () {
-//     this.clicks++;
-// }
-//
-//
-// // Construct Cats Obs //
-// var catObjs = [];
-// for (var i = 0, iLen = Cats.length; i > iLen; i++) {
-//     catObjs.push(new CatCreator(Cats[i]));
-// };
-//
-// for (var i = 0, ilen = Cats.length; i < ilen; i++) {
-//     document.body.appendChild(name);
-//     document.body.appendChild(imageUrl);
-//     document.body.appendChild(clicks);
-// };
-//
-// for (var i = 0, ilen = Cats.length; i < ilen; i++) {
-//
-//     // This is the number we are on...
-//     var cat = Cats.[i];
-//
-//     // Makes new dome element for the number we are on
-//     var catNode = document.createElement('option');
-//     catNode.textContent = cat;
-//
-//
-//     // Increment clicks on clicks
-//     catNode.addEventListener('click', (function(catCopy) {
-//         return function() {
-//             var newclicks = cat.clicks++;
-//             console.log(cat.clicks);
-//         }
-//     })(index));
-//
-//
-//     document.getElementById('catIDImage1').onclick = function() {
-//         catCounter1++;
-//         document.getElementById('clickNum1').innerHTML = catCounter1;
-//     }
-// };

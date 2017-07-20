@@ -1,7 +1,8 @@
 body {
     background-color: teal;
     font-family: "Trebuchet MS";
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     width: 100%;
 }
 h1 {
@@ -16,29 +17,34 @@ h2 {
     text-align: center;
 }
 p {
-    float: inline;
+    flex-wrap: wrap;
     font-size: 100px;
     color: white;
     text-align: center;
     padding; 20px 0px;
 }
 img {
-    float: right;
-    margin-left: auto;
-    margin-right: auto;
+    align-items: center;
     width: 60%;
     align-content: right;
+    cursor: pointer;
 
 }
+button {
+    cursor: pointer;
+}
 #catSelector {
+    flex-wrap: wrap;
     color: white;
     font-size: 1.3em;
     text-align: left;
     float: left;
+    cursor: pointer;
     /*margin-left: 80px;
     margin-right: auto;*/
 }
 #catCount {
+    flex-wrap: wrap;
     float: auto;
     color: white;
     font-size: 2em;
